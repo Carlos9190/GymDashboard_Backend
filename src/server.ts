@@ -12,6 +12,9 @@ const app = express()
 app.use(cors(corsConfig))
 
 // Routes
+app.get('/', (req, res) => {
+    res.send('Hello world')
+})
 app.use('/api/auth', authRoutes)
 
 export default app
