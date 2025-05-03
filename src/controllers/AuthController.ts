@@ -119,7 +119,6 @@ export class AuthController {
         try {
             const { email } = req.body
 
-            // Usuario existe
             const user = await User.findOne({ email })
             if (!user) {
                 const error = new Error('User not found')
@@ -133,12 +132,12 @@ export class AuthController {
                 return
             }
 
-            // Generar token
+            // Generate token
             const token = new Token()
             token.token = generateToken()
             token.user = user.id
 
-            // Enviar Email
+            // Send Email
             AuthEmail.sendConfirmationEmail({
                 email: user.email,
                 name: user.name,
@@ -147,6 +146,36 @@ export class AuthController {
 
             await Promise.allSettled([user.save(), token.save()])
             res.send('A new token was sent, check your email')
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' })
+        }
+    }
+
+    static forgotPassword = async (req: Request, res: Response) => {
+        try {
+            const { email } = req.body
+
+            const user = await User.findOne({ email })
+            if (!user) {
+                const error = new Error('User not found')
+                res.status(404).json({ error: error.message })
+                return
+            }
+
+            // Generate token
+            const token = new Token()
+            token.token = generateToken()
+            token.user = user.id
+            await token.save()
+
+            // Send Email
+            AuthEmail.sendPasswordResetToken({
+                email: user.email,
+                name: user.name,
+                token: token.token
+            })
+
+            res.send('Check your email for instructions')
         } catch (error) {
             res.status(500).json({ error: 'There was an error' })
         }
