@@ -24,7 +24,7 @@ router.post('/create-account',
 
 router.post('/confirm-account',
     body('token')
-        .notEmpty().withMessage('The token is required'),
+        .notEmpty().withMessage('Token is required'),
     handleInputErrors,
     AuthController.confirmAccount
 )
@@ -50,6 +50,13 @@ router.post('/forgot-password',
         .isEmail().withMessage('Invalid email'),
     handleInputErrors,
     AuthController.forgotPassword
+)
+
+router.post('/validate-token',
+    body('token')
+        .notEmpty().withMessage('Token is required'),
+    handleInputErrors,
+    AuthController.validateToken
 )
 
 export default router
