@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import User from "../models/User"
-import { hashPassword } from "../utils/auth"
+import { chechPassword, hashPassword } from "../utils/auth"
 import Token from "../models/Token"
 import { generateToken } from "../utils/token"
 import { AuthEmail } from "../emails/AuthEmail"
@@ -61,6 +61,51 @@ export class AuthController {
 
             await Promise.allSettled([user.save(), tokenExists.deleteOne()])
             res.send('Successfully confirmed account')
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' })
+        }
+    }
+
+    static login = async (req: Request, res: Response) => {
+        try {
+            const { email, password } = req.body
+
+            const user = await User.findOne({ email })
+
+            if (!user) {
+                const error = new Error('User not found')
+                res.status(404).json({ error: error.message })
+                return
+            }
+
+            if (!user.confirmed) {
+                // Generate token
+                const token = new Token()
+                token.token = generateToken()
+                token.user = user.id
+                await token.save()
+
+                // Send Email
+                AuthEmail.sendConfirmationEmail({
+                    email: user.email,
+                    name: user.name,
+                    token: token.token
+                })
+
+                const error = new Error('User account has not been confirmed, check your email to confirm it')
+                res.status(401).json({ error: error.message })
+                return
+            }
+
+            // Check password
+            const isPasswordCorrect = await chechPassword(password, user.password)
+            if (!isPasswordCorrect) {
+                const error = new Error('Incorrect password')
+                res.status(401).json({ error: error.message })
+                return
+            }
+
+            res.send('Authenticated...')
         } catch (error) {
             res.status(500).json({ error: 'There was an error' })
         }
