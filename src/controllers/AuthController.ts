@@ -4,6 +4,7 @@ import { chechPassword, hashPassword } from "../utils/auth"
 import Token from "../models/Token"
 import { generateToken } from "../utils/token"
 import { AuthEmail } from "../emails/AuthEmail"
+import { generateJWT } from "../utils/jwt"
 
 export class AuthController {
 
@@ -105,7 +106,47 @@ export class AuthController {
                 return
             }
 
-            res.send('Authenticated...')
+            // Send JWT
+            const token = generateJWT({ id: user.id })
+
+            res.send(token)
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' })
+        }
+    }
+
+    static requestConfirmationCode = async (req: Request, res: Response) => {
+        try {
+            const { email } = req.body
+
+            // Usuario existe
+            const user = await User.findOne({ email })
+            if (!user) {
+                const error = new Error('User not found')
+                res.status(404).json({ error: error.message })
+                return
+            }
+
+            if (user.confirmed) {
+                const error = new Error('Already existing user')
+                res.status(409).json({ error: error.message })
+                return
+            }
+
+            // Generar token
+            const token = new Token()
+            token.token = generateToken()
+            token.user = user.id
+
+            // Enviar Email
+            AuthEmail.sendConfirmationEmail({
+                email: user.email,
+                name: user.name,
+                token: token.token
+            })
+
+            await Promise.allSettled([user.save(), token.save()])
+            res.send('A new token was sent, check your email')
         } catch (error) {
             res.status(500).json({ error: 'There was an error' })
         }
