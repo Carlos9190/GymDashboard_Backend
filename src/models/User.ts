@@ -5,6 +5,7 @@ export interface IUser extends Document {
     password: string
     name: string
     confirmed: boolean
+    is_admin: boolean
 }
 
 const userSchema: Schema = new Schema({
@@ -23,6 +24,10 @@ const userSchema: Schema = new Schema({
         require: true
     },
     confirmed: {
+        type: Boolean,
+        default: false
+    },
+    is_admin: {
         type: Boolean,
         default: false
     }
