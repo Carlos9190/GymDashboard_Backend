@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { body } from "express-validator"
+import { body, param } from "express-validator"
 import { AuthController } from "../controllers/AuthController"
 import { handleInputErrors } from "../middleware/validation"
 
@@ -57,6 +57,20 @@ router.post('/validate-token',
         .notEmpty().withMessage('Token is required'),
     handleInputErrors,
     AuthController.validateToken
+)
+
+router.post('/update-password/:token',
+    param('token').isNumeric().withMessage('Invalid token'),
+    body('password')
+        .isLength({ min: 8 }).withMessage('Password should be 8 characters length minimum'),
+    body('password_confirmation').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match')
+        }
+        return true
+    }),
+    handleInputErrors,
+    AuthController.updatePasswordWithToken
 )
 
 export default router
