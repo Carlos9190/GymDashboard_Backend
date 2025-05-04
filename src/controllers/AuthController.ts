@@ -193,8 +193,6 @@ export class AuthController {
                 return
             }
 
-            await tokenExists.deleteOne()
-
             res.send('Valid token, set your new password')
         } catch (error) {
             res.status(500).json({ error: 'There was an error' })
@@ -223,5 +221,10 @@ export class AuthController {
         } catch (error) {
             res.status(500).json({ error: 'There was an error' })
         }
+    }
+
+    static user = async (req: Request, res: Response) => {
+        res.json(req.user)
+        return
     }
 }
