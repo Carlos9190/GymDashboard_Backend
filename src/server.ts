@@ -11,6 +11,9 @@ connectDB()
 const app = express()
 app.use(cors(corsConfig))
 
+// Read form data
+app.use(express.json())
+
 // Routes
 app.get('/', (req, res) => {
     res.send('Hello world')
