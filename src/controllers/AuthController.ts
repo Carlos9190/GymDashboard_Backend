@@ -5,6 +5,7 @@ import Token from "../models/Token"
 import { generateToken } from "../utils/token"
 import { AuthEmail } from "../emails/AuthEmail"
 import { generateJWT } from "../utils/jwt"
+import { createResponse } from "../utils/responses"
 
 export class AuthController {
 
@@ -15,8 +16,7 @@ export class AuthController {
             // Prevent duplicates
             const userExists = await User.findOne({ email })
             if (userExists) {
-                const error = new Error('Already existing user')
-                res.status(409).json({ error: error.message })
+                res.status(409).json(createResponse('Already existing user', false))
                 return
             }
 
@@ -39,9 +39,9 @@ export class AuthController {
             })
 
             await Promise.allSettled([user.save(), token.save()])
-            res.send('Account created, check your email to confirm it')
+            res.send(createResponse('Account created, check your email to confirm it', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -52,8 +52,7 @@ export class AuthController {
             const tokenExists = await Token.findOne({ token })
 
             if (!tokenExists) {
-                const error = new Error('Invalid token')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('Invalid token', false))
                 return
             }
 
@@ -61,9 +60,9 @@ export class AuthController {
             user.confirmed = true
 
             await Promise.allSettled([user.save(), tokenExists.deleteOne()])
-            res.send('Successfully confirmed account')
+            res.send(createResponse('Successfully confirmed account', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -74,8 +73,7 @@ export class AuthController {
             const user = await User.findOne({ email })
 
             if (!user) {
-                const error = new Error('User not found')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('User not found', false))
                 return
             }
 
@@ -93,25 +91,22 @@ export class AuthController {
                     token: token.token
                 })
 
-                const error = new Error('User account has not been confirmed, check your email to confirm it')
-                res.status(401).json({ error: error.message })
+                res.status(401).json(createResponse('User account has not been confirmed, check your email to confirm it', false))
                 return
             }
 
             // Check password
             const isPasswordCorrect = await chechPassword(password, user.password)
             if (!isPasswordCorrect) {
-                const error = new Error('Incorrect password')
-                res.status(401).json({ error: error.message })
+                res.status(401).json(createResponse('Incorrect password', false))
                 return
             }
 
             // Send JWT
             const token = generateJWT({ id: user.id })
-
-            res.send(token)
+            res.send(createResponse('User authenticated successfully', true, token))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -121,14 +116,12 @@ export class AuthController {
 
             const user = await User.findOne({ email })
             if (!user) {
-                const error = new Error('User not found')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('User not found', false))
                 return
             }
 
             if (user.confirmed) {
-                const error = new Error('Already existing user')
-                res.status(409).json({ error: error.message })
+                res.status(409).json(createResponse('Already existing user', false))
                 return
             }
 
@@ -145,9 +138,9 @@ export class AuthController {
             })
 
             await Promise.allSettled([user.save(), token.save()])
-            res.send('A new token was sent, check your email')
+            res.send(createResponse('A new token was sent, check your email', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -157,8 +150,7 @@ export class AuthController {
 
             const user = await User.findOne({ email })
             if (!user) {
-                const error = new Error('User not found')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('User not found', false))
                 return
             }
 
@@ -175,9 +167,9 @@ export class AuthController {
                 token: token.token
             })
 
-            res.send('Check your email for instructions')
+            res.send(createResponse('Check your email for instructions', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -188,14 +180,13 @@ export class AuthController {
             const tokenExists = await Token.findOne({ token })
 
             if (!tokenExists) {
-                const error = new Error('Invalid token')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('Invalid token', false))
                 return
             }
 
-            res.send('Valid token, set your new password')
+            res.send(createResponse('Valid token, set your new password', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
@@ -207,8 +198,7 @@ export class AuthController {
             const tokenExists = await Token.findOne({ token })
 
             if (!tokenExists) {
-                const error = new Error('Invalid token')
-                res.status(404).json({ error: error.message })
+                res.status(404).json(createResponse('Invalid token', false))
                 return
             }
 
@@ -216,15 +206,14 @@ export class AuthController {
             user.password = await hashPassword(password)
 
             await Promise.allSettled([user.save(), tokenExists.deleteOne()])
-
-            res.send('The password was changed successfully')
+            res.send(createResponse('The password was changed successfully', true))
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' })
+            res.status(500).json(createResponse('There was an error', false))
         }
     }
 
     static user = async (req: Request, res: Response) => {
-        res.json(req.user)
+        res.json(createResponse('User retrieved successfully', true, req.user))
         return
     }
 }
