@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import jwt from 'jsonwebtoken'
 import User, { IUser } from "../models/User"
+import { createResponse } from "../utils/responses"
 
 declare global {
     namespace Express {
@@ -13,8 +14,7 @@ declare global {
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
     const bearer = req.headers.authorization
     if (!bearer) {
-        const error = new Error('No autorizado')
-        res.status(401).json({ error: error.message })
+        res.status(401).json(createResponse('Unauthorized', false))
         return
     }
 
@@ -25,14 +25,14 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
         if (typeof decoded === 'object' && decoded.id) {
             const user = await User.findById(decoded.id).select('_id name email')
-            if(user){
+            if (user) {
                 req.user = user
                 next()
             } else {
-                res.status(500).json({ error: 'Token no válido' })
+                res.status(500).json(createResponse('Invalid token', false))
             }
         }
     } catch (error) {
-        res.status(500).json({ error: 'Token no válido' })
+        res.status(500).json(createResponse('Invalid token', false))
     }
 }
