@@ -136,6 +136,7 @@ export class ExerciseController {
                 return
             }
 
+            await deleteImage(exercise.exerciseImage)
             await exercise.deleteOne()
             res.json(createResponse('Exercise deleted successfully', true))
         } catch (error) {
