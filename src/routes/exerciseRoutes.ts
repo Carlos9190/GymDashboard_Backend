@@ -26,10 +26,6 @@ router.get('/:id',
 router.put('/:id',
     param('id')
         .isMongoId().withMessage('Invalid ID'),
-    body('exerciseName')
-        .notEmpty().withMessage('Exercise name is required'),
-    body('exerciseImage')
-        .optional(),
     handleInputErrors,
     ExerciseController.updateExercise
 )

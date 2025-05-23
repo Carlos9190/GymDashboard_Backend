@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import Exercise from "../models/Exercise"
 import { createResponse } from "../utils/response"
-import { uploadImage } from "../utils/image"
+import { deleteImage, uploadImage } from "../utils/image"
 import formidable from "formidable"
 
 export class ExerciseController {
@@ -77,8 +77,10 @@ export class ExerciseController {
 
     static updateExercise = async (req: Request, res: Response) => {
         const { id } = req.params
+        const form = formidable({ multiples: false })
+
         try {
-            const exercise = await Exercise.findByIdAndUpdate(id, req.body)
+            const exercise = await Exercise.findById(id)
             if (!exercise) {
                 res.status(404).json(createResponse('Exercise not found', false))
                 return
@@ -89,8 +91,32 @@ export class ExerciseController {
                 return
             }
 
-            await exercise.save()
-            res.json(createResponse('Exercise updated successfully', true))
+            form.parse(req, async (error, fields, files) => {
+                if (error) {
+                    return res.status(500).json(createResponse('Error parsing the form', false))
+                }
+
+                const exerciseName = fields.exerciseName?.[0]
+                if (!exerciseName) {
+                    return res.status(400).json(createResponse('Exercise name is required', false))
+                }
+
+                exercise.exerciseName = exerciseName
+
+                if (!files || !files.file?.[0]) {
+                    exercise.exerciseImage
+                } else {
+                    await deleteImage(exercise.exerciseImage)
+                    const { imageUrl, success } = await uploadImage(files.file[0].filepath)
+                    if (!success) {
+                        return res.status(500).json(createResponse('There was an error while uploading the image', success))
+                    }
+                    exercise.exerciseImage = imageUrl
+                }
+
+                await exercise.save()
+                res.json(createResponse('Exercise updated successfully', true))
+            })
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
