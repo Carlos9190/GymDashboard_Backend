@@ -4,6 +4,7 @@ import cors from "cors"
 import { corsConfig } from "./config/cors"
 import { connectDB } from "./config/db"
 import authRoutes from "./routes/authRoutes"
+import exerciseRoutes from "./routes/exerciseRoutes"
 
 dotenv.config()
 connectDB()
@@ -15,9 +16,16 @@ app.use(cors(corsConfig))
 app.use(express.json())
 
 // Routes
+
+// TEST ROUTE
 app.get('/', (req, res) => {
     res.send('Hello world')
 })
+
+// AUTH ROUTES
 app.use('/api/auth', authRoutes)
+
+// EXERCISE ROUTES
+app.use('/api/exercises', exerciseRoutes)
 
 export default app
