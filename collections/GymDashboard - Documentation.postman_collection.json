@@ -29,7 +29,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"User name\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"email\": \"user@email.com\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Carlos\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"email\": \"carlos@email.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,7 +89,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"password1\"\r\n}",
+					"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"password\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -241,7 +241,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTZiMDU4OGZiYWI0ZmFkN2QwNDgyMyIsImlhdCI6MTc0NjMxNzQzOSwiZXhwIjoxNzYxODY5NDM5fQ.xVAfMsQVqoxYu0oX4gudpIwSyqlnSVNML2WqG8MjYrc",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTkzOGZjM2M3MGQ3NzJmMTJkOTE3YyIsImlhdCI6MTc0NjQ4NTE0NCwiZXhwIjoxNzYyMDM3MTQ0fQ.Qo-Oqu0J2C-wybDRvENVzq4EDqqVOvDlBCFtlLWU-iI",
 							"type": "string"
 						}
 					]
@@ -259,6 +259,189 @@
 						"api",
 						"auth",
 						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXERCISE - Create exercise",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjUyNDllOGVhNzY4MzBlNzNlMzgwNyIsImlhdCI6MTc0NzI2NDcyNCwiZXhwIjoxNzYyODE2NzI0fQ.anIPSBVFuqza8guAnH-OxM2LH9c2md8IHUdqTQ32uzo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Bench press.jpg"
+						},
+						{
+							"key": "exerciseName",
+							"value": "Dumbell bench press",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/exercises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXERCISE - Get all exercises",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0NzI2NTEwNiwiZXhwIjoxNzYyODE3MTA2fQ.AfM31B3nycHZQJPlG3sSPzLsVT09LNWnykDP0EiYfzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/exercises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXERCISE - Get exercise by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/exercises/68250419ab3c6e3c1113d7bc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"exercises",
+						"68250419ab3c6e3c1113d7bc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXERCISE - Update exercise",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Bench press.jpg"
+						},
+						{
+							"key": "exerciseName",
+							"value": "Dumbbell bench press",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/exercises/683089a86248b4c18b2ac024",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"exercises",
+						"683089a86248b4c18b2ac024"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXERCISE - Delete exercise",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/exercises/68308ab06248b4c18b2ac02a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"exercises",
+						"68308ab06248b4c18b2ac02a"
 					]
 				}
 			},
