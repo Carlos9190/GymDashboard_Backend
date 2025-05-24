@@ -5,7 +5,7 @@ import Token from "../models/Token"
 import { generateToken } from "../utils/token"
 import { AuthEmail } from "../emails/AuthEmail"
 import { generateJWT } from "../utils/jwt"
-import { createResponse } from "../utils/responses"
+import { createResponse } from "../utils/response"
 
 export class AuthController {
 
