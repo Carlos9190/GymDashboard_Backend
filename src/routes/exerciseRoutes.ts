@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { body, param } from "express-validator"
+import { param } from "express-validator"
 import { ExerciseController } from "../controllers/ExerciseController"
 import { handleInputErrors } from "../middleware/validation"
 import { authenticate } from "../middleware/auth"
