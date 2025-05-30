@@ -3,6 +3,7 @@ import Exercise from "../models/Exercise"
 import { createResponse } from "../utils/response"
 import { deleteImage, uploadImage } from "../utils/image"
 import formidable from "formidable"
+import Routine from "../models/Routine"
 
 export class ExerciseController {
     static createExercise = async (req: Request, res: Response) => {
@@ -19,9 +20,12 @@ export class ExerciseController {
                     return res.status(400).json(createResponse('Exercise name is required', false))
                 }
 
-                const exercise = new Exercise()
-                exercise.exerciseName = exerciseName
-                exercise.userId = req.user.id
+                const routineId = fields.routineId?.[0]
+
+                const exercise = new Exercise({
+                    exerciseName,
+                    userId: req.user.id
+                })
 
                 if (!files || !files.file?.[0]) {
                     exercise.exerciseImage = ''
@@ -34,6 +38,15 @@ export class ExerciseController {
                 }
 
                 await exercise.save()
+
+                if (routineId) {
+                    await Routine.findByIdAndUpdate(
+                        routineId,
+                        { $addToSet: { exercises: exercise._id } },
+                        { new: true }
+                    )
+                }
+
                 return res.json(createResponse('Exercise created successfully', true))
             })
         } catch (error) {
@@ -101,10 +114,11 @@ export class ExerciseController {
                     return res.status(400).json(createResponse('Exercise name is required', false))
                 }
 
+                const routineId = fields.routineId?.[0]
+
                 exercise.exerciseName = exerciseName
 
                 if (!files || !files.file?.[0]) {
-                    exercise.exerciseImage
                 } else {
                     await deleteImage(exercise.exerciseImage)
                     const { imageUrl, success } = await uploadImage(files.file[0].filepath)
@@ -115,6 +129,21 @@ export class ExerciseController {
                 }
 
                 await exercise.save()
+
+                if (routineId) {
+                    await Promise.all([
+                        Routine.updateMany(
+                            { exercises: exercise._id },
+                            { $pull: { exercises: exercise._id } }
+                        ),
+                        Routine.findByIdAndUpdate(
+                            routineId,
+                            { $addToSet: { exercises: exercise._id } },
+                            { new: true }
+                        )
+                    ])
+                }
+
                 res.json(createResponse('Exercise updated successfully', true))
             })
         } catch (error) {
@@ -125,7 +154,7 @@ export class ExerciseController {
     static deleteExercise = async (req: Request, res: Response) => {
         const { id } = req.params
         try {
-            const exercise = await Exercise.findById(id)
+            const exercise = await Exercise.findByIdAndDelete(id)
             if (!exercise) {
                 res.status(404).json(createResponse('Exercise not found', false))
                 return
@@ -136,8 +165,14 @@ export class ExerciseController {
                 return
             }
 
-            await deleteImage(exercise.exerciseImage)
-            await exercise.deleteOne()
+            await Promise.allSettled([
+                deleteImage(exercise.exerciseImage),
+                Routine.updateMany(
+                    { exercises: exercise._id },
+                    { $pull: { exercises: exercise._id } }
+                )
+            ])
+
             res.json(createResponse('Exercise deleted successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))

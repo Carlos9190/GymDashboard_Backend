@@ -5,6 +5,7 @@ export interface IRoutine extends Document {
     routineName: string
     routineDays: string[]
     userId: PopulatedDoc<IUser & Document>
+    exercises?: Types.ObjectId[]
 }
 
 const routineSchema: Schema = new Schema({
@@ -20,6 +21,11 @@ const routineSchema: Schema = new Schema({
     userId: {
         type: Types.ObjectId,
         ref: 'User'
+    },
+    exercises: {
+        type: [Types.ObjectId],
+        ref: 'Exercise',
+        default: []
     }
 })
 

@@ -4,10 +4,9 @@ import { createResponse } from "../utils/response"
 
 export class RoutineController {
     static createRoutine = async (req: Request, res: Response) => {
-
         try {
             const routine = new Routine(req.body)
-            userId: req.user._id
+            routine.userId = req.user.id
             await routine.save()
             res.send(createResponse('Routine created successfully', true))
         } catch (error) {
@@ -58,7 +57,6 @@ export class RoutineController {
                 return
             }
 
-            await routine.save()
             res.json(createResponse('Routine updated successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
@@ -79,7 +77,6 @@ export class RoutineController {
                 return
             }
 
-            await routine.deleteOne()
             res.json(createResponse('Routine delete successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
