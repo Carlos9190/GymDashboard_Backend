@@ -21,6 +21,7 @@ export class ExerciseController {
                 }
 
                 const routineId = fields.routineId?.[0]
+                const routineIdArray: string[] = routineId.split(',').map((id: string) => id.trim()).filter(Boolean)
 
                 const exercise = new Exercise({
                     exerciseName,
@@ -39,11 +40,10 @@ export class ExerciseController {
 
                 await exercise.save()
 
-                if (routineId) {
-                    await Routine.findByIdAndUpdate(
-                        routineId,
-                        { $addToSet: { exercises: exercise._id } },
-                        { new: true }
+                if (routineIdArray.length > 0) {
+                    await Routine.updateMany(
+                        { _id: { $in: routineIdArray } },
+                        { $addToSet: { exercises: exercise._id } }
                     )
                 }
 
@@ -115,6 +115,7 @@ export class ExerciseController {
                 }
 
                 const routineId = fields.routineId?.[0]
+                const routineIdArray: string[] = routineId.split(',').map((id: string) => id.trim()).filter(Boolean)
 
                 exercise.exerciseName = exerciseName
 
@@ -130,18 +131,16 @@ export class ExerciseController {
 
                 await exercise.save()
 
-                if (routineId) {
-                    await Promise.all([
-                        Routine.updateMany(
-                            { exercises: exercise._id },
-                            { $pull: { exercises: exercise._id } }
-                        ),
-                        Routine.findByIdAndUpdate(
-                            routineId,
-                            { $addToSet: { exercises: exercise._id } },
-                            { new: true }
-                        )
-                    ])
+                if (routineIdArray.length > 0) {
+                    await Routine.updateMany(
+                        { exercises: exercise._id },
+                        { $pull: { exercises: exercise._id } }
+                    )
+
+                    await Routine.updateMany(
+                        { _id: { $in: routineIdArray } },
+                        { $addToSet: { exercises: exercise._id } }
+                    )
                 }
 
                 res.json(createResponse('Exercise updated successfully', true))
