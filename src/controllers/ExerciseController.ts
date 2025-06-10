@@ -21,7 +21,9 @@ export class ExerciseController {
                 }
 
                 const routineId = fields.routineId?.[0]
-                const routineIdArray: string[] = routineId.split(',').map((id: string) => id.trim()).filter(Boolean)
+                const routineIds: string[] = routineId
+                    ? routineId.split(',').map((id: string) => id.trim())
+                    : []
 
                 const exercise = new Exercise({
                     exerciseName,
@@ -40,9 +42,9 @@ export class ExerciseController {
 
                 await exercise.save()
 
-                if (routineIdArray.length > 0) {
+                if (routineIds.length > 0) {
                     await Routine.updateMany(
-                        { _id: { $in: routineIdArray } },
+                        { _id: { $in: routineIds } },
                         { $addToSet: { exercises: exercise._id } }
                     )
                 }
@@ -115,7 +117,9 @@ export class ExerciseController {
                 }
 
                 const routineId = fields.routineId?.[0]
-                const routineIdArray: string[] = routineId.split(',').map((id: string) => id.trim()).filter(Boolean)
+                const routineIds: string[] = routineId
+                    ? routineId.split(',').map((id: string) => id.trim())
+                    : []
 
                 exercise.exerciseName = exerciseName
 
@@ -131,14 +135,14 @@ export class ExerciseController {
 
                 await exercise.save()
 
-                if (routineIdArray.length > 0) {
-                    await Routine.updateMany(
-                        { exercises: exercise._id },
-                        { $pull: { exercises: exercise._id } }
-                    )
+                await Routine.updateMany(
+                    { exercises: exercise._id },
+                    { $pull: { exercises: exercise._id } }
+                )
 
+                if (routineIds.length > 0) {
                     await Routine.updateMany(
-                        { _id: { $in: routineIdArray } },
+                        { _id: { $in: routineIds } },
                         { $addToSet: { exercises: exercise._id } }
                     )
                 }
