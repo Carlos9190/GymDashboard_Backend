@@ -3,6 +3,7 @@ import { body, param } from "express-validator"
 import { RoutineController } from "../controllers/RoutineController"
 import { handleInputErrors } from "../middleware/validation"
 import { authenticate } from "../middleware/auth"
+import { routineBelongsToUser, routineExists } from "../middleware/routine"
 
 const router = Router()
 
@@ -21,16 +22,15 @@ router.get('/',
     RoutineController.getAllRoutines
 )
 
+router.param('id', routineExists)
+router.param('id', routineBelongsToUser)
+
 router.get('/:id',
-    param('id')
-        .isMongoId().withMessage('Invalid ID'),
     handleInputErrors,
     RoutineController.getRoutineById
 )
 
 router.put('/:id',
-    param('id')
-        .isMongoId().withMessage('Invalid ID'),
     body('routineName')
         .notEmpty().withMessage('Routine name is required'),
     body('routineDays')
@@ -40,8 +40,6 @@ router.put('/:id',
 )
 
 router.delete('/:id',
-    param('id')
-        .isMongoId().withMessage('Invalid ID'),
     handleInputErrors,
     RoutineController.deleteteRoutine
 )
