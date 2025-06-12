@@ -10,7 +10,7 @@ router.post('/create-account',
     body('name')
         .notEmpty().withMessage('User name is required'),
     body('password')
-        .isLength({ min: 8 }).withMessage('Password should be 8 characters length minimum'),
+        .isLength({ min: 8 }).withMessage('Password must be 8 characters length minimum'),
     body('password_confirmation').custom((value, { req }) => {
         if (value !== req.body.password) {
             throw new Error('Password confirmation does not match')
@@ -63,7 +63,7 @@ router.post('/validate-token',
 router.post('/update-password/:token',
     param('token').isNumeric().withMessage('Invalid token'),
     body('password')
-        .isLength({ min: 8 }).withMessage('Password should be 8 characters length minimum'),
+        .isLength({ min: 8 }).withMessage('Password must be 8 characters length minimum'),
     body('password_confirmation').custom((value, { req }) => {
         if (value !== req.body.password) {
             throw new Error('Password confirmation does not match')

@@ -49,7 +49,7 @@ export class ExerciseController {
                     )
                 }
 
-                return res.json(createResponse('Exercise created successfully', true))
+                res.json(createResponse('Exercise created successfully', true))
             })
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
@@ -73,14 +73,14 @@ export class ExerciseController {
     static getExerciseById = async (req: Request, res: Response) => {
         const { id } = req.params
         try {
-            const exercise = await Exercise.findById(id)
+            const exercise = await Exercise.findById(id).populate('records')
             if (!exercise) {
                 res.status(404).json(createResponse('Exercise not found', false))
                 return
             }
 
             if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(403).json(createResponse('This exercise does not belong to you', false))
+                res.status(400).json(createResponse('Invalid action', false))
                 return
             }
 
@@ -102,7 +102,7 @@ export class ExerciseController {
             }
 
             if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(403).json(createResponse('Only the owner can update this exercise', false))
+                res.status(400).json(createResponse('Invalid action', false))
                 return
             }
 
@@ -157,14 +157,14 @@ export class ExerciseController {
     static deleteExercise = async (req: Request, res: Response) => {
         const { id } = req.params
         try {
-            const exercise = await Exercise.findByIdAndDelete(id)
+            const exercise = await Exercise.findById(id)
             if (!exercise) {
                 res.status(404).json(createResponse('Exercise not found', false))
                 return
             }
 
             if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(403).json(createResponse('Only the owner can delete this exercise', false))
+                res.status(400).json(createResponse('Invalid action', false))
                 return
             }
 
@@ -173,7 +173,8 @@ export class ExerciseController {
                 Routine.updateMany(
                     { exercises: exercise._id },
                     { $pull: { exercises: exercise._id } }
-                )
+                ),
+                exercise.deleteOne()
             ])
 
             res.json(createResponse('Exercise deleted successfully', true))
