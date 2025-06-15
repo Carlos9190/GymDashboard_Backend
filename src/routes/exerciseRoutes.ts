@@ -68,16 +68,16 @@ router.get('/:exerciseId/records/:recordId',
 
 router.put('/:exerciseId/records/:recordId',
     body('sets')
-        .notEmpty().withMessage('Please provide the number of sets.')
-        .isInt({ min: 1 }).withMessage('Sets must be at least 1.'),
+        .notEmpty().withMessage('Number of sets is required')
+        .isInt({ min: 1 }).withMessage('Sets must be at least 1'),
 
     body('reps')
-        .notEmpty().withMessage('Please provide the number of reps.')
-        .isInt({ min: 1 }).withMessage('Reps must be at least 1.'),
+        .notEmpty().withMessage('Number of reps is required')
+        .isInt({ min: 1 }).withMessage('Reps must be at least 1'),
 
     body('weight')
-        .notEmpty().withMessage('Please provide the weight.')
-        .isFloat({ min: 0.1 }).withMessage('Weight must be greater than 0.'),
+        .notEmpty().withMessage('Weight is required')
+        .isFloat({ min: 0.1 }).withMessage('Weight must be greater than 0'),
     handleInputErrors,
     RecordController.updateExerciseRecord
 )
