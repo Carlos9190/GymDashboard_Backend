@@ -26,7 +26,6 @@ router.param('id', routineExists)
 router.param('id', routineBelongsToUser)
 
 router.get('/:id',
-    handleInputErrors,
     RoutineController.getRoutineById
 )
 
@@ -39,9 +38,13 @@ router.put('/:id',
     RoutineController.updateRoutine
 )
 
+router.patch('/:id/exercise',
+    RoutineController.removeExerciseFromRoutine
+)
+
 router.delete('/:id',
-    handleInputErrors,
     RoutineController.deleteteRoutine
 )
+
 
 export default router

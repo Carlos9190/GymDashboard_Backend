@@ -1,11 +1,12 @@
 import mongoose, { Schema, Document, Types, PopulatedDoc } from "mongoose"
 import { IUser } from "./User"
+import { IExercise } from "./Exercise"
 
 export interface IRoutine extends Document {
     routineName: string
     routineDays: string[]
     userId: PopulatedDoc<IUser & Document>
-    exercises?: Types.ObjectId[]
+    exercises?: PopulatedDoc<IExercise & Document>[]
 }
 
 const routineSchema: Schema = new Schema({
@@ -22,11 +23,12 @@ const routineSchema: Schema = new Schema({
         type: Types.ObjectId,
         ref: 'User'
     },
-    exercises: {
-        type: [Types.ObjectId],
-        ref: 'Exercise',
-        default: []
-    }
+    exercises: [
+        {
+            type: Types.ObjectId,
+            ref: 'Exercise'
+        }
+    ]
 })
 
 const Routine = mongoose.model<IRoutine>('Routine', routineSchema)
