@@ -42,6 +42,20 @@ export class RoutineController {
         }
     }
 
+    static removeExerciseFromRoutine = async (req: Request, res: Response) => {
+        try {
+            const { exerciseId } = req.body
+
+            await Routine.findByIdAndUpdate(req.routine.id, {
+                $pull: { exercises: exerciseId }
+            })
+
+            res.json(createResponse('Exercise removed from routine successfully', true))
+        } catch (error) {
+            res.status(500).json(createResponse('There was an error', false))
+        }
+    }
+
     static deleteteRoutine = async (req: Request, res: Response) => {
         try {
             await req.routine.deleteOne()

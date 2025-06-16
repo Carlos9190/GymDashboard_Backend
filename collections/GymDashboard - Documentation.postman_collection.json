@@ -600,6 +600,47 @@
 			"response": []
 		},
 		{
+			"name": "ROUTINE - Remove exercise from routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"exerciseId\": \"6849343a65670f1770884dc1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/routines/684fb35c813fd76e662dc36d/exercise",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"684fb35c813fd76e662dc36d",
+						"exercise"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "ROUTINE - Delete routine",
 			"request": {
 				"auth": {

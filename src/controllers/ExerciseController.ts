@@ -71,41 +71,17 @@ export class ExerciseController {
     }
 
     static getExerciseById = async (req: Request, res: Response) => {
-        const { id } = req.params
         try {
-            const exercise = await Exercise.findById(id).populate('records')
-            if (!exercise) {
-                res.status(404).json(createResponse('Exercise not found', false))
-                return
-            }
-
-            if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(400).json(createResponse('Invalid action', false))
-                return
-            }
-
-            res.json(createResponse('Exercise fetched successfully', true, exercise))
+            res.json(createResponse('Exercise fetched successfully', true, req.exercise))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
     }
 
     static updateExercise = async (req: Request, res: Response) => {
-        const { id } = req.params
         const form = formidable({ multiples: false })
 
         try {
-            const exercise = await Exercise.findById(id)
-            if (!exercise) {
-                res.status(404).json(createResponse('Exercise not found', false))
-                return
-            }
-
-            if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(400).json(createResponse('Invalid action', false))
-                return
-            }
-
             form.parse(req, async (error, fields, files) => {
                 if (error) {
                     return res.status(500).json(createResponse('Error parsing the form', false))
@@ -121,29 +97,29 @@ export class ExerciseController {
                     ? routineId.split(',').map((id: string) => id.trim())
                     : []
 
-                exercise.exerciseName = exerciseName
+                req.exercise.exerciseName = exerciseName
 
                 if (!files || !files.file?.[0]) {
                 } else {
-                    await deleteImage(exercise.exerciseImage)
+                    await deleteImage(req.exercise.exerciseImage)
                     const { imageUrl, success } = await uploadImage(files.file[0].filepath)
                     if (!success) {
                         return res.status(500).json(createResponse('There was an error while uploading the image', success))
                     }
-                    exercise.exerciseImage = imageUrl
+                    req.exercise.exerciseImage = imageUrl
                 }
 
-                await exercise.save()
+                await req.exercise.save()
 
                 await Routine.updateMany(
-                    { exercises: exercise._id },
-                    { $pull: { exercises: exercise._id } }
+                    { exercises: req.exercise._id },
+                    { $pull: { exercises: req.exercise._id } }
                 )
 
                 if (routineIds.length > 0) {
                     await Routine.updateMany(
                         { _id: { $in: routineIds } },
-                        { $addToSet: { exercises: exercise._id } }
+                        { $addToSet: { exercises: req.exercise._id } }
                     )
                 }
 
@@ -155,26 +131,14 @@ export class ExerciseController {
     }
 
     static deleteExercise = async (req: Request, res: Response) => {
-        const { id } = req.params
         try {
-            const exercise = await Exercise.findById(id)
-            if (!exercise) {
-                res.status(404).json(createResponse('Exercise not found', false))
-                return
-            }
-
-            if (exercise.userId.toString() !== req.user.id.toString()) {
-                res.status(400).json(createResponse('Invalid action', false))
-                return
-            }
-
             await Promise.allSettled([
-                deleteImage(exercise.exerciseImage),
+                deleteImage(req.exercise.exerciseImage),
                 Routine.updateMany(
-                    { exercises: exercise._id },
-                    { $pull: { exercises: exercise._id } }
+                    { exercises: req.exercise._id },
+                    { $pull: { exercises: req.exercise._id } }
                 ),
-                exercise.deleteOne()
+                req.exercise.deleteOne()
             ])
 
             res.json(createResponse('Exercise deleted successfully', true))
