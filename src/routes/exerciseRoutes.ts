@@ -4,7 +4,7 @@ import { ExerciseController } from "../controllers/ExerciseController"
 import { handleInputErrors } from "../middleware/validation"
 import { authenticate } from "../middleware/auth"
 import { RecordController } from "../controllers/RecordController"
-import { exerciseExists } from "../middleware/exercise"
+import { exerciseBelongsToUser, exerciseExists } from "../middleware/exercise"
 import { recordBelongsToProject, recordExists } from "../middleware/record"
 
 const router = Router()
@@ -19,24 +19,22 @@ router.get('/',
     ExerciseController.getAllExercises
 )
 
-router.param('id', param('id').isMongoId().withMessage('Invalid ID'))
-router.param('id', handleInputErrors)
+router.param('exerciseId', exerciseExists)
+router.param('exerciseId', exerciseBelongsToUser)
 
-router.get('/:id',
+router.get('/:exerciseId',
     ExerciseController.getExerciseById
 )
 
-router.put('/:id',
+router.put('/:exerciseId',
     ExerciseController.updateExercise
 )
 
-router.delete('/:id',
+router.delete('/:exerciseId',
     ExerciseController.deleteExercise
 )
 
 // Routes for records
-router.param('exerciseId', exerciseExists)
-
 router.post('/:exerciseId/records',
     body('sets')
         .notEmpty().withMessage('Number of sets is required')
@@ -54,7 +52,6 @@ router.post('/:exerciseId/records',
 )
 
 router.get('/:exerciseId/records',
-    handleInputErrors,
     RecordController.getExerciseRecords
 )
 
@@ -62,7 +59,6 @@ router.param('recordId', recordExists)
 router.param('recordId', recordBelongsToProject)
 
 router.get('/:exerciseId/records/:recordId',
-    handleInputErrors,
     RecordController.getExerciseRecordById
 )
 
@@ -83,7 +79,6 @@ router.put('/:exerciseId/records/:recordId',
 )
 
 router.delete('/:exerciseId/records/:recordId',
-    handleInputErrors,
     RecordController.deleteExerciseRecord
 )
 
