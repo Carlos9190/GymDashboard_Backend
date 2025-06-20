@@ -8,7 +8,7 @@ export class RoutineController {
             const routine = new Routine(req.body)
             routine.userId = req.user.id
             await routine.save()
-            res.send(createResponse('Routine created successfully', true))
+            res.json(createResponse('Routine created successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -16,8 +16,8 @@ export class RoutineController {
 
     static getAllRoutines = async (req: Request, res: Response) => {
         try {
-            const routines = await Routine.find({ userId: req.user._id })
-            res.send(createResponse('Routines fetched successfully', true, routines))
+            const routines = await Routine.find({ userId: req.user.id })
+            res.json(createResponse('Routines fetched successfully', true, routines))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }

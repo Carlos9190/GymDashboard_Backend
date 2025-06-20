@@ -58,11 +58,7 @@ export class ExerciseController {
 
     static getAllExercises = async (req: Request, res: Response) => {
         try {
-            const exercises = await Exercise.find({
-                $or: [
-                    { userId: { $in: req.user.id } }
-                ]
-            })
+            const exercises = await Exercise.find({ userId: req.user.id })
 
             res.json(createResponse('Exercises fetched successfully', true, exercises))
         } catch (error) {
