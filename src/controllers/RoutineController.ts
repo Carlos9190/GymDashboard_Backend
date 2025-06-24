@@ -42,6 +42,20 @@ export class RoutineController {
         }
     }
 
+    static addExerciseToRoutine = async (req: Request, res: Response) => {
+        try {
+            const { exerciseId } = req.body
+
+            await Routine.findByIdAndUpdate(req.routine.id, {
+                $addToSet: { exercises: exerciseId }
+            })
+
+            res.json(createResponse('Exercise added to routine successfully', true))
+        } catch (error) {
+            res.status(500).json(createResponse('There was an error', false))
+        }
+    }
+
     static removeExerciseFromRoutine = async (req: Request, res: Response) => {
         try {
             const { exerciseId } = req.body
