@@ -46,6 +46,7 @@ export class RecordController {
 
     static deleteExerciseRecord = async (req: Request, res: Response) => {
         try {
+            // TODO: Check why the record reference is not being deleted from exercise model in the db
             req.exercise.records = req.exercise.records.filter(record => record.toString() !== req.record.id.toString())
             await Promise.allSettled([req.record.deleteOne(), req.exercise.save()])
             res.json(createResponse('Exercise record deleted successfully', true))

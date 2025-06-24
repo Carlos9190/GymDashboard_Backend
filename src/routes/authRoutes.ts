@@ -79,4 +79,29 @@ router.get('/user',
     AuthController.user
 )
 
+// Routes for profile
+router.patch('/profile',
+    authenticate,
+    body('name')
+        .notEmpty().withMessage('User name is required'),
+    handleInputErrors,
+    AuthController.updateProfile
+)
+
+router.patch('/update-password',
+    authenticate,
+    body('current_password')
+        .notEmpty().withMessage('Current password is required'),
+    body('password')
+        .isLength({ min: 8 }).withMessage('Password must be 8 characters length minimum'),
+    body('password_confirmation').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Password confirmation does not match')
+        }
+        return true
+    }),
+    handleInputErrors,
+    AuthController.updateCurrentUserPassword
+)
+
 export default router

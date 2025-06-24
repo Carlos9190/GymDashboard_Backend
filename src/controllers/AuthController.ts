@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import User from "../models/User"
-import { chechPassword, hashPassword } from "../utils/auth"
+import { checkPassword, hashPassword } from "../utils/auth"
 import Token from "../models/Token"
 import { generateToken } from "../utils/token"
 import { AuthEmail } from "../emails/AuthEmail"
@@ -39,7 +39,7 @@ export class AuthController {
             })
 
             await Promise.allSettled([user.save(), token.save()])
-            res.send(createResponse('Account created, check your email to confirm it', true))
+            res.json(createResponse('Account created, check your email to confirm it', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -60,7 +60,7 @@ export class AuthController {
             user.confirmed = true
 
             await Promise.allSettled([user.save(), tokenExists.deleteOne()])
-            res.send(createResponse('Successfully confirmed account', true))
+            res.json(createResponse('Successfully confirmed account', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -96,7 +96,7 @@ export class AuthController {
             }
 
             // Check password
-            const isPasswordCorrect = await chechPassword(password, user.password)
+            const isPasswordCorrect = await checkPassword(password, user.password)
             if (!isPasswordCorrect) {
                 res.status(401).json(createResponse('Incorrect password', false))
                 return
@@ -104,7 +104,7 @@ export class AuthController {
 
             // Send JWT
             const token = generateJWT({ id: user.id })
-            res.send(createResponse('User authenticated successfully', true, token))
+            res.json(createResponse('User authenticated successfully', true, token))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -138,7 +138,7 @@ export class AuthController {
             })
 
             await Promise.allSettled([user.save(), token.save()])
-            res.send(createResponse('A new token was sent, check your email', true))
+            res.json(createResponse('A new token was sent, check your email', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -167,7 +167,7 @@ export class AuthController {
                 token: token.token
             })
 
-            res.send(createResponse('Check your email for instructions', true))
+            res.json(createResponse('Check your email for instructions', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -184,7 +184,7 @@ export class AuthController {
                 return
             }
 
-            res.send(createResponse('Valid token, set your new password', true))
+            res.json(createResponse('Valid token, set your new password', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -206,7 +206,7 @@ export class AuthController {
             user.password = await hashPassword(password)
 
             await Promise.allSettled([user.save(), tokenExists.deleteOne()])
-            res.send(createResponse('The password was changed successfully', true))
+            res.json(createResponse('The password was changed successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -214,6 +214,38 @@ export class AuthController {
 
     static user = async (req: Request, res: Response) => {
         res.json(createResponse('User retrieved successfully', true, req.user))
-        return
+    }
+
+    static updateProfile = async (req: Request, res: Response) => {
+        try {
+            const { name } = req.body
+
+            req.user.name = name
+
+            await req.user.save()
+            res.json(createResponse('Profile updated successfully', true))
+        } catch (error) {
+            res.status(500).json(createResponse('There was an error', false))
+        }
+    }
+
+    static updateCurrentUserPassword = async (req: Request, res: Response) => {
+        try {
+            const { current_password, password } = req.body
+
+            const user = await User.findById(req.user.id)
+
+            const isPasswordCorrect = await checkPassword(current_password, user.password)
+            if (!isPasswordCorrect) {
+                res.status(401).json(createResponse('Incorrect current password', false))
+                return
+            }
+
+            user.password = await hashPassword(password)
+            await user.save()
+            res.json(createResponse('Password updated successfully', true))
+        } catch (error) {
+            res.status(500).json(createResponse('There was an error', false))
+        }
     }
 }

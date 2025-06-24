@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Types, PopulatedDoc } from "mongoose"
 import { IUser } from "./User"
-import { IRecord } from "./Records"
+import Record, { IRecord } from "./Records"
 
 export interface IExercise extends Document {
     exerciseName: string
@@ -9,7 +9,7 @@ export interface IExercise extends Document {
     records: PopulatedDoc<IRecord & Document>[]
 }
 
-const excerciseSchema: Schema = new Schema({
+const ExcerciseSchema: Schema = new Schema({
     exerciseName: {
         type: String,
         required: true,
@@ -31,5 +31,12 @@ const excerciseSchema: Schema = new Schema({
     ]
 }, { timestamps: true })
 
-const Exercise = mongoose.model<IExercise>('Exercise', excerciseSchema)
+// Middleware
+ExcerciseSchema.pre('deleteOne', { document: true }, async function () {
+    const exerciseId = this._id
+    if (!exerciseId) return
+    await Record.deleteMany({ exercise: exerciseId })
+})
+
+const Exercise = mongoose.model<IExercise>('Exercise', ExcerciseSchema)
 export default Exercise

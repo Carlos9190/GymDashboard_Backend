@@ -265,6 +265,86 @@
 			"response": []
 		},
 		{
+			"name": "PROFILE - Update profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Carlos Ibarra\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROFILE - Update password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_password\": \"password\",\r\n    \"password\": \"password2\",\r\n    \"password_confirmation\": \"password2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/update-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"update-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "EXERCISE - Create exercise",
 			"request": {
 				"auth": {
@@ -296,7 +376,8 @@
 						{
 							"key": "routineId",
 							"value": "6838f2f392fa27e478abb4e5, 6838f9cb1e60d39418c22cd6",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -444,7 +525,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4000/api/exercises/68390f131ed2d66f5bb77216",
+					"raw": "http://localhost:4000/api/exercises/6854a6193de19c2fae38cd16",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -453,7 +534,7 @@
 					"path": [
 						"api",
 						"exercises",
-						"68390f131ed2d66f5bb77216"
+						"6854a6193de19c2fae38cd16"
 					]
 				}
 			},
@@ -688,7 +769,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sets\": 5,\r\n    \"reps\":8,\r\n    \"weight\": 30\r\n}",
+					"raw": "{\r\n    \"sets\": 10000,\r\n    \"reps\":10000,\r\n    \"weight\": 10000\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -696,7 +777,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records",
+					"raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -705,7 +786,7 @@
 					"path": [
 						"api",
 						"exercises",
-						"6844afa82135635c9bc18e62",
+						"6854a8123de19c2fae38cd30",
 						"records"
 					]
 				}
@@ -835,7 +916,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records/6848fbabf0192b168a02284a",
+					"raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records/6854a8223de19c2fae38cd34",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -844,9 +925,9 @@
 					"path": [
 						"api",
 						"exercises",
-						"6844afa82135635c9bc18e62",
+						"6854a8123de19c2fae38cd30",
 						"records",
-						"6848fbabf0192b168a02284a"
+						"6854a8223de19c2fae38cd34"
 					]
 				}
 			},
