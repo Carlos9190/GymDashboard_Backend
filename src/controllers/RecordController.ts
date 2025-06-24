@@ -17,12 +17,33 @@ export class RecordController {
 
     static getExerciseRecords = async (req: Request, res: Response) => {
         try {
-            const records = await Record.find({ exercise: req.exercise.id }).populate('exercise')
-            res.json(createResponse('Exercise records fetched successfully', true, records))
+            const page = parseInt(req.query.page as string)
+            const limit = 5
+            const skip = (page - 1) * limit
+
+            const [records, total] = await Promise.all([
+                Record.find({ exercise: req.exercise.id })
+                    .populate('exercise')
+                    .sort({ createdAt: -1 })
+                    .skip(skip)
+                    .limit(limit),
+                Record.countDocuments({ exercise: req.exercise.id })
+            ])
+
+            const totalPages = Math.ceil(total / limit)
+
+            res.json(
+                createResponse('Exercise records fetched successfully', true, {
+                    records,
+                    page,
+                    totalPages
+                })
+            )
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
     }
+
 
     static getExerciseRecordById = async (req: Request, res: Response) => {
         try {
@@ -46,8 +67,7 @@ export class RecordController {
 
     static deleteExerciseRecord = async (req: Request, res: Response) => {
         try {
-            // TODO: Check why the record reference is not being deleted from exercise model in the db
-            req.exercise.records = req.exercise.records.filter(record => record.toString() !== req.record.id.toString())
+            req.exercise.records = req.exercise.records.filter(record => record._id.toString() !== req.record._id.toString())
             await Promise.allSettled([req.record.deleteOne(), req.exercise.save()])
             res.json(createResponse('Exercise record deleted successfully', true))
         } catch (error) {
