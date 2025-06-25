@@ -345,6 +345,259 @@
 			"response": []
 		},
 		{
+			"name": "ROUTINE - Create routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"routineName\": \"Leg day\",\r\n    \"routineDays\": [\"Wednesday\", \"Saturday\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/routines",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Get all routines",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/routines",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Get routine by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"6844aca72135635c9bc18dfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Update routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"routineName\": \"\",\r\n    \"routineDays\": [\r\n        \"Tuesday\",\r\n        \"Friday\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"6844aca72135635c9bc18dfa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Add exercise to routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"exerciseId\": \"6857974d1c35c4bf51ee8fb9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/routines/684f9d41db10a079c392b874/exercise",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"684f9d41db10a079c392b874",
+						"exercise"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Remove exercise from routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"exerciseId\": \"6857974d1c35c4bf51ee8fb9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/routines/684f9d41db10a079c392b874/exercise",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"684f9d41db10a079c392b874",
+						"exercise"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ROUTINE - Delete routine",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/routines/6838e83ed318610c6d392fe9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"routines",
+						"6838e83ed318610c6d392fe9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "EXERCISE - Create exercise",
 			"request": {
 				"auth": {
@@ -541,218 +794,6 @@
 			"response": []
 		},
 		{
-			"name": "ROUTINE - Create routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"routineName\": \"Leg day\",\r\n    \"routineDays\": [\"Wednesday\", \"Saturday\"]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Get all routines",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Get routine by ID",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"6844aca72135635c9bc18dfa"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Update routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"routineName\": \"\",\r\n    \"routineDays\": [\r\n        \"Tuesday\",\r\n        \"Friday\"\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"6844aca72135635c9bc18dfa"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Remove exercise from routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"exerciseId\": \"6849343a65670f1770884dc1\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/684fb35c813fd76e662dc36d/exercise",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"684fb35c813fd76e662dc36d",
-						"exercise"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Delete routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines/6838e83ed318610c6d392fe9",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"6838e83ed318610c6d392fe9"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "RECORD - Create record",
 			"request": {
 				"auth": {
@@ -809,7 +850,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844b6c12135635c9bc18f63/records",
+					"raw": "http://localhost:4000/api/exercises/68577fc0e02a745a5f6bce3f/records?page=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -818,8 +859,14 @@
 					"path": [
 						"api",
 						"exercises",
-						"6844b6c12135635c9bc18f63",
+						"68577fc0e02a745a5f6bce3f",
 						"records"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
 					]
 				}
 			},

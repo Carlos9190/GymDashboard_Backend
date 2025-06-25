@@ -38,6 +38,10 @@ router.put('/:id',
     RoutineController.updateRoutine
 )
 
+router.post('/:id/exercise',
+    RoutineController.addExerciseToRoutine
+)
+
 router.patch('/:id/exercise',
     RoutineController.removeExerciseFromRoutine
 )
