@@ -42,6 +42,10 @@ router.post('/:id/exercise',
     RoutineController.addExerciseToRoutine
 )
 
+router.patch('/:id/reorderExercises',
+    RoutineController.reorderRoutineExercises
+)
+
 router.patch('/:id/exercise',
     RoutineController.removeExerciseFromRoutine
 )
