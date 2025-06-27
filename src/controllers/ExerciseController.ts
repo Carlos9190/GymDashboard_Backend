@@ -42,12 +42,15 @@ export class ExerciseController {
 
                 await exercise.save()
 
-                if (routineIds.length > 0) {
-                    await Routine.updateMany(
-                        { _id: { $in: routineIds } },
-                        { $addToSet: { exercises: exercise._id } }
-                    )
-                }
+                await Routine.updateMany(
+                    { _id: { $in: routineIds } },
+                    {
+                        $addToSet: {
+                            exercises: exercise._id,
+                            exerciseOrder: exercise._id
+                        }
+                    }
+                )
 
                 res.json(createResponse('Exercise created successfully', true))
             })
@@ -109,15 +112,23 @@ export class ExerciseController {
 
                 await Routine.updateMany(
                     { exercises: req.exercise._id },
-                    { $pull: { exercises: req.exercise._id } }
+                    {
+                        $pull: {
+                            exercises: req.exercise._id,
+                            exerciseOrder: req.exercise._id
+                        }
+                    }
                 )
 
-                if (routineIds.length > 0) {
-                    await Routine.updateMany(
-                        { _id: { $in: routineIds } },
-                        { $addToSet: { exercises: req.exercise._id } }
-                    )
-                }
+                await Routine.updateMany(
+                    { _id: { $in: routineIds } },
+                    {
+                        $addToSet: {
+                            exercises: req.exercise._id,
+                            exerciseOrder: req.exercise._id
+                        }
+                    }
+                )
 
                 res.json(createResponse('Exercise updated successfully', true))
             })
@@ -132,7 +143,12 @@ export class ExerciseController {
                 deleteImage(req.exercise.exerciseImage),
                 Routine.updateMany(
                     { exercises: req.exercise._id },
-                    { $pull: { exercises: req.exercise._id } }
+                    {
+                        $pull: {
+                            exercises: req.exercise._id,
+                            exerciseOrder: req.exercise._id
+                        }
+                    }
                 ),
                 req.exercise.deleteOne()
             ])

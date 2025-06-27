@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import Routine from "../models/Routine"
 import { createResponse } from "../utils/response"
+import Exercise from "../models/Exercise"
 
 export class RoutineController {
     static createRoutine = async (req: Request, res: Response) => {
@@ -47,10 +48,25 @@ export class RoutineController {
             const { exerciseId } = req.body
 
             await Routine.findByIdAndUpdate(req.routine.id, {
-                $addToSet: { exercises: exerciseId }
+                $addToSet: { exercises: exerciseId },
+                $push: { exerciseOrder: exerciseId }
             })
 
             res.json(createResponse('Exercise added to routine successfully', true))
+        } catch (error) {
+            res.status(500).json(createResponse('There was an error', false))
+        }
+    }
+
+    static reorderRoutineExercises = async (req: Request, res: Response) => {
+        try {
+            const { orderedExerciseIds } = req.body
+
+            await Routine.findByIdAndUpdate(req.routine.id, {
+                exerciseOrder: orderedExerciseIds
+            })
+
+            res.json(createResponse('Exercises reordered successfully', true))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
         }
@@ -61,7 +77,10 @@ export class RoutineController {
             const { exerciseId } = req.body
 
             await Routine.findByIdAndUpdate(req.routine.id, {
-                $pull: { exercises: exerciseId }
+                $pull: {
+                    exercises: exerciseId,
+                    exerciseOrder: exerciseId
+                }
             })
 
             res.json(createResponse('Exercise removed from routine successfully', true))
