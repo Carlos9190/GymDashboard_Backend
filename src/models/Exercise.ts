@@ -29,7 +29,7 @@ const ExcerciseSchema: Schema = new Schema({
             ref: 'Record'
         }
     ]
-}, { timestamps: true })
+})
 
 // Middleware
 ExcerciseSchema.pre('deleteOne', { document: true }, async function () {
