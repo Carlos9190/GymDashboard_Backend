@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import Routine from "../models/Routine"
 import { createResponse } from "../utils/response"
-import Exercise from "../models/Exercise"
+import mongoose from "mongoose"
 
 export class RoutineController {
     static createRoutine = async (req: Request, res: Response) => {
@@ -26,6 +26,10 @@ export class RoutineController {
 
     static getRoutineById = async (req: Request, res: Response) => {
         try {
+            if (req.routine.exercises) {
+                req.routine.exercises.sort((a, b) => a.order - b.order)
+            }
+
             res.json(createResponse('Routine fetched successfully', true, req.routine))
         } catch (error) {
             res.status(500).json(createResponse('There was an error', false))
@@ -47,10 +51,13 @@ export class RoutineController {
         try {
             const { exerciseId } = req.body
 
-            await Routine.findByIdAndUpdate(req.routine.id, {
-                $addToSet: { exercises: exerciseId },
-                $push: { exerciseOrder: exerciseId }
-            })
+            const newExercise = {
+                exercise: exerciseId,
+                order: (req.routine.exercises?.length ?? 0) + 1
+            }
+
+            req.routine.exercises?.push(newExercise)
+            await req.routine.save()
 
             res.json(createResponse('Exercise added to routine successfully', true))
         } catch (error) {
@@ -62,9 +69,13 @@ export class RoutineController {
         try {
             const { orderedExerciseIds } = req.body
 
-            await Routine.findByIdAndUpdate(req.routine.id, {
-                exerciseOrder: orderedExerciseIds
-            })
+            const newExercises = orderedExerciseIds.map((id: string, index: number) => ({
+                exercise: new mongoose.Types.ObjectId(id),
+                order: index + 1
+            }))
+
+            req.routine.exercises = newExercises
+            await req.routine.save()
 
             res.json(createResponse('Exercises reordered successfully', true))
         } catch (error) {
@@ -76,12 +87,16 @@ export class RoutineController {
         try {
             const { exerciseId } = req.body
 
-            await Routine.findByIdAndUpdate(req.routine.id, {
-                $pull: {
-                    exercises: exerciseId,
-                    exerciseOrder: exerciseId
-                }
+            req.routine.exercises = req.routine.exercises?.filter(exerciseItem => {
+                const currentId = exerciseItem.exercise._id.toString()
+                return currentId !== exerciseId
             })
+
+            req.routine.exercises?.forEach((exerciseItem, index) => {
+                exerciseItem.order = index + 1
+            })
+
+            await req.routine.save()
 
             res.json(createResponse('Exercise removed from routine successfully', true))
         } catch (error) {

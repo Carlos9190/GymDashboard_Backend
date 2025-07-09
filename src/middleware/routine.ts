@@ -19,7 +19,7 @@ export async function routineExists(req: Request, res: Response, next: NextFunct
             return
         }
 
-        const routine = await Routine.findById(id).populate('exercises')
+        const routine = await Routine.findById(id).populate('exercises.exercise')
         if (!routine) {
             res.status(404).json(createResponse('Routine not found', false))
             return

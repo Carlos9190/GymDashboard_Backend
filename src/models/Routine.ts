@@ -6,8 +6,10 @@ export interface IRoutine extends Document {
     routineName: string
     routineDays: string[]
     userId: PopulatedDoc<IUser & Document>
-    exercises?: PopulatedDoc<IExercise & Document>[]
-    exerciseOrder?: PopulatedDoc<IExercise & Document>[]
+    exercises?: {
+        exercise: PopulatedDoc<IExercise & Document>
+        order: number
+    }[]
 }
 
 const routineSchema: Schema = new Schema({
@@ -24,18 +26,20 @@ const routineSchema: Schema = new Schema({
         type: Types.ObjectId,
         ref: 'User'
     },
-    exercises: [
-        {
-            type: Types.ObjectId,
-            ref: 'Exercise'
-        }
-    ],
-    exerciseOrder: [
-        {
-            type: Types.ObjectId,
-            ref: 'Exercise'
-        }
-    ]
+    exercises: {
+        type: [
+            {
+                exercise: {
+                    type: Types.ObjectId,
+                    ref: 'Exercise'
+                },
+                order: {
+                    type: Number,
+                    required: true
+                }
+            }
+        ]
+    }
 })
 
 const Routine = mongoose.model<IRoutine>('Routine', routineSchema)
