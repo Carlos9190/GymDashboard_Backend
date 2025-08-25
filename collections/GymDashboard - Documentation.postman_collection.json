@@ -1,1025 +1,915 @@
 {
-	"info": {
-		"_postman_id": "a3c8343a-1c91-46ff-bdd5-1ca288daf5e3",
-		"name": "GymDashboard - MERN",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29810403"
-	},
-	"item": [
-		{
-			"name": "Test",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000"
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Create account",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Carlos\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"email\": \"carlos@email.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/create-account",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"create-account"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Confirm account",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"token\": \"991680\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/confirm-account",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"confirm-account"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"password\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Request new code",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"user@email.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/request-code",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"request-code"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Forgot password",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"user@email.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/forgot-password",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"forgot-password"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Validate token",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"token\": \"157168\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/validate-token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"validate-token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Set new password with token",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"password\": \"password1\",\r\n    \"password_confirmation\": \"password1\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/update-password/157168",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"update-password",
-						"157168"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AUTH - Get authenticated user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTkzOGZjM2M3MGQ3NzJmMTJkOTE3YyIsImlhdCI6MTc0NjQ4NTE0NCwiZXhwIjoxNzYyMDM3MTQ0fQ.Qo-Oqu0J2C-wybDRvENVzq4EDqqVOvDlBCFtlLWU-iI",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/auth/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PROFILE - Update profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Carlos Ibarra\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/profile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"profile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PROFILE - Update password",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"current_password\": \"password\",\r\n    \"password\": \"password2\",\r\n    \"password_confirmation\": \"password2\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/auth/update-password",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"auth",
-						"update-password"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Create routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"routineName\": \"Leg day\",\r\n    \"routineDays\": [\"Wednesday\", \"Saturday\"]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Get all routines",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Get routine by ID",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines/685ae1ea93794d1884bcd239",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"685ae1ea93794d1884bcd239"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Update routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"routineName\": \"\",\r\n    \"routineDays\": [\r\n        \"Tuesday\",\r\n        \"Friday\"\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"6844aca72135635c9bc18dfa"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Add exercise to routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"exerciseId\": \"68590382356a16b9e34dd493\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/684fb363813fd76e662dc372/exercise",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"684fb363813fd76e662dc372",
-						"exercise"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Reorder exercises",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"orderedExerciseIds\": [\r\n        \"6857974d1c35c4bf51ee8fb9\",\r\n        \"68577fc0e02a745a5f6bce3f\"\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/685c85e42b98f3f0621fa529/reorderExercises",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"685c85e42b98f3f0621fa529",
-						"reorderExercises"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Remove exercise from routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"exerciseId\": \"6857974d1c35c4bf51ee8fb9\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/routines/684f9d41db10a079c392b874/exercise",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"684f9d41db10a079c392b874",
-						"exercise"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ROUTINE - Delete routine",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/routines/6838e83ed318610c6d392fe9",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"routines",
-						"6838e83ed318610c6d392fe9"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EXERCISE - Create exercise",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Incline bench.jpg",
-							"disabled": true
-						},
-						{
-							"key": "exerciseName",
-							"value": "Incline dumbell press",
-							"type": "text"
-						},
-						{
-							"key": "routineId",
-							"value": "6838f2f392fa27e478abb4e5, 6838f9cb1e60d39418c22cd6",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/exercises",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EXERCISE - Get all exercises",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0NzI2NTEwNiwiZXhwIjoxNzYyODE3MTA2fQ.AfM31B3nycHZQJPlG3sSPzLsVT09LNWnykDP0EiYfzE",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EXERCISE - Get exercise by ID",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6844afa82135635c9bc18e62"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EXERCISE - Update exercise",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Bench press.jpg",
-							"disabled": true
-						},
-						{
-							"key": "exerciseName",
-							"value": "Dumbbell bench press",
-							"type": "text"
-						},
-						{
-							"key": "routineId",
-							"value": "6838f2f392fa27e478abb4e5",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/68390e2410e0fa8f06ca8466",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"68390e2410e0fa8f06ca8466"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EXERCISE - Delete exercise",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6854a6193de19c2fae38cd16",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6854a6193de19c2fae38cd16"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RECORD - Create record",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sets\": 10000,\r\n    \"reps\":10000,\r\n    \"weight\": 10000\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6854a8123de19c2fae38cd30",
-						"records"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RECORD - Get all records",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/68577fc0e02a745a5f6bce3f/records?page=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"68577fc0e02a745a5f6bce3f",
-						"records"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RECORD - Get record by ID",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records/6848fbabf0192b168a02284a",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6844afa82135635c9bc18e62",
-						"records",
-						"6848fbabf0192b168a02284a"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RECORD - Update record",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"sets\": \"\",\r\n    \"reps\": \"\",\r\n    \"weight\": \"\" \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records/684910013e9923a60dd8fcb6",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6844afa82135635c9bc18e62",
-						"records",
-						"684910013e9923a60dd8fcb6"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RECORD - Delete record",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records/6854a8223de19c2fae38cd34",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"api",
-						"exercises",
-						"6854a8123de19c2fae38cd30",
-						"records",
-						"6854a8223de19c2fae38cd34"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+    "info": {
+        "_postman_id": "a3c8343a-1c91-46ff-bdd5-1ca288daf5e3",
+        "name": "GymDashboard - MERN",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "29810403"
+    },
+    "item": [
+        {
+            "name": "Test",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000"
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Create account",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"name\": \"Carlos\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"email\": \"carlos@email.com\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/create-account",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "create-account"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Confirm account",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"token\": \"991680\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/confirm-account",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "confirm-account"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Login",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"password\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/login",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "login"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Request new code",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"email\": \"user@email.com\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/request-code",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "request-code"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Forgot password",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"email\": \"user@email.com\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/forgot-password",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "forgot-password"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Validate token",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"token\": \"157168\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/validate-token",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "validate-token"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Set new password with token",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"password\": \"password1\",\r\n    \"password_confirmation\": \"password1\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/update-password/157168",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "update-password", "157168"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "AUTH - Get authenticated user",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTkzOGZjM2M3MGQ3NzJmMTJkOTE3YyIsImlhdCI6MTc0NjQ4NTE0NCwiZXhwIjoxNzYyMDM3MTQ0fQ.Qo-Oqu0J2C-wybDRvENVzq4EDqqVOvDlBCFtlLWU-iI",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/user",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "user"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "PROFILE - Update profile",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"name\": \"Carlos Ibarra\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/profile",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "profile"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "PROFILE - Update password",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"current_password\": \"password\",\r\n    \"password\": \"password2\",\r\n    \"password_confirmation\": \"password2\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/auth/update-password",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "auth", "update-password"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Create routine",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"routineName\": \"Chest day\",\r\n    \"routineDays\": [\"Monday\", \"Thursday\"]\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/routines",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Get all routines",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/routines",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Get routine by current day",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/current-day",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines", "current-day"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Get routine by ID",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/685ae1ea93794d1884bcd239",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines", "685ae1ea93794d1884bcd239"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Update routine",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"routineName\": \"\",\r\n    \"routineDays\": [\r\n        \"Tuesday\",\r\n        \"Friday\"\r\n    ]\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/6844aca72135635c9bc18dfa",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines", "6844aca72135635c9bc18dfa"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Add exercise to routine",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"exerciseId\": \"68590382356a16b9e34dd493\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/68633c07c4eb3bf63fbe6067/exercise",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "routines",
+                        "68633c07c4eb3bf63fbe6067",
+                        "exercise"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Reorder exercises",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc1MDM5NDkzOSwiZXhwIjoxNzY1OTQ2OTM5fQ.cRW46suMlrWcoNq3OfumV39GV5jB2ppTLXx7fkMoNy0",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"orderedExerciseIds\": [\r\n        \"68590382356a16b9e34dd493\",\r\n        \"6857974d1c35c4bf51ee8fb9\",\r\n        \"68590286356a16b9e34dd435\",\r\n        \"68577fc0e02a745a5f6bce3f\"\r\n    ]\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/68633c07c4eb3bf63fbe6067/reorderExercises",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "routines",
+                        "68633c07c4eb3bf63fbe6067",
+                        "reorderExercises"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Remove exercise from routine",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"exerciseId\": \"6857974d1c35c4bf51ee8fb9\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/68633c07c4eb3bf63fbe6067/exercise",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "routines",
+                        "68633c07c4eb3bf63fbe6067",
+                        "exercise"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "ROUTINE - Delete routine",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/routines/6838e83ed318610c6d392fe9",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "routines", "6838e83ed318610c6d392fe9"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "EXERCISE - Create exercise",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Incline bench.jpg",
+                            "disabled": true
+                        },
+                        {
+                            "key": "exerciseName",
+                            "value": "Incline dumbell press",
+                            "type": "text"
+                        },
+                        {
+                            "key": "routineId",
+                            "value": "6838f2f392fa27e478abb4e5, 6838f9cb1e60d39418c22cd6",
+                            "type": "text",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "exercises"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "EXERCISE - Get all exercises",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0NzI2NTEwNiwiZXhwIjoxNzYyODE3MTA2fQ.AfM31B3nycHZQJPlG3sSPzLsVT09LNWnykDP0EiYfzE",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "exercises"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "EXERCISE - Get exercise by ID",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0OTYxNjI2OSwiZXhwIjoxNzY1MTY4MjY5fQ.9N1F4COtRN1JCVWZ-aGP8xnpMas4jKAfOfX5h6HKdtY",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "exercises", "6844afa82135635c9bc18e62"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "EXERCISE - Update exercise",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": "/C:/Users/Carlos Ibarra/OneDrive/Escritorio/Bench press.jpg",
+                            "disabled": true
+                        },
+                        {
+                            "key": "exerciseName",
+                            "value": "Dumbbell bench press",
+                            "type": "text"
+                        },
+                        {
+                            "key": "routineId",
+                            "value": "6838f2f392fa27e478abb4e5",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/68390e2410e0fa8f06ca8466",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "exercises", "68390e2410e0fa8f06ca8466"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "EXERCISE - Delete exercise",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6854a6193de19c2fae38cd16",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": ["api", "exercises", "6854a6193de19c2fae38cd16"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "RECORD - Create record",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"sets\": 10000,\r\n    \"reps\":10000,\r\n    \"weight\": 10000\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "exercises",
+                        "6854a8123de19c2fae38cd30",
+                        "records"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "RECORD - Get all records",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/68577fc0e02a745a5f6bce3f/records?page=1",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "exercises",
+                        "68577fc0e02a745a5f6bce3f",
+                        "records"
+                    ],
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "RECORD - Get record by ID",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0Nzg3MTAwNCwiZXhwIjoxNzYzNDIzMDA0fQ.Nzq1FgdsAc-1gp5amy2RrzjyT738qhtJcMDiGBY0vDg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records/6848fbabf0192b168a02284a",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "exercises",
+                        "6844afa82135635c9bc18e62",
+                        "records",
+                        "6848fbabf0192b168a02284a"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "RECORD - Update record",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"sets\": \"\",\r\n    \"reps\": \"\",\r\n    \"weight\": \"\" \r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6844afa82135635c9bc18e62/records/684910013e9923a60dd8fcb6",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "exercises",
+                        "6844afa82135635c9bc18e62",
+                        "records",
+                        "684910013e9923a60dd8fcb6"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "RECORD - Delete record",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWE4ZWQxNGQ0NmU5OWU4MDIzMTJjOCIsImlhdCI6MTc0ODU1MzEwNywiZXhwIjoxNzY0MTA1MTA3fQ.sMY_Ct1dM3UwyB3krBSTqD573WzoxDnKn242QuMRgcg",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:4000/api/exercises/6854a8123de19c2fae38cd30/records/6854a8223de19c2fae38cd34",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "4000",
+                    "path": [
+                        "api",
+                        "exercises",
+                        "6854a8123de19c2fae38cd30",
+                        "records",
+                        "6854a8223de19c2fae38cd34"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
 }
