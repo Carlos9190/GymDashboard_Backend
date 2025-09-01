@@ -1,15 +1,23 @@
-import type { Request, Response, NextFunction } from "express"
-import { validationResult } from "express-validator"
-import { createResponse } from "../utils/response"
+import type { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
+import { createResponse } from "../utils/response";
 
-export const handleInputErrors = (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    let errors = validationResult(req)
+export const handleInputErrors = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        res.status(400).json(createResponse('Validation error', false, { errors: errors.array() }))
-        return
+        res.status(400).json(
+            createResponse("Validation error", false, {
+                errors: errors.array(),
+            })
+        );
+        return;
     }
 
-    next()
-    return
-}
+    next();
+    return;
+};

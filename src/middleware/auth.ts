@@ -1,38 +1,44 @@
-import { Request, Response, NextFunction } from "express"
-import jwt from 'jsonwebtoken'
-import User, { IUser } from "../models/User"
-import { createResponse } from "../utils/response"
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import User, { IUser } from "../models/User";
+import { createResponse } from "../utils/response";
 
 declare global {
     namespace Express {
         interface Request {
-            user?: IUser
+            user?: IUser;
         }
     }
 }
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
-    const bearer = req.headers.authorization
+export const authenticate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const bearer = req.headers.authorization;
     if (!bearer) {
-        res.status(401).json(createResponse('Unauthorized', false))
-        return
+        res.status(401).json(createResponse("Unauthorized", false));
+        return;
     }
 
-    const [, token] = bearer.split(' ')
+    const [, token] = bearer.split(" ");
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        if (typeof decoded === 'object' && decoded.id) {
-            const user = await User.findById(decoded.id).select('_id name email')
+        if (typeof decoded === "object" && decoded.id) {
+            const user = await User.findById(decoded.id).select(
+                "_id name email"
+            );
             if (user) {
-                req.user = user
-                next()
+                req.user = user;
+                next();
             } else {
-                res.status(500).json(createResponse('Invalid token', false))
+                res.status(500).json(createResponse("Invalid token", false));
             }
         }
     } catch (error) {
-        res.status(500).json(createResponse('Invalid token', false))
+        res.status(500).json(createResponse("Invalid token", false));
     }
-}
+};
