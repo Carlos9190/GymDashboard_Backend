@@ -43,7 +43,7 @@ export class AuthEmail {
     };
 
     static sendPasswordResetToken = async (user: IEmail) => {
-        const resetUrl = `${BASE_URL}/auth/forgot-password`;
+        const resetUrl = `${BASE_URL}/auth/new-password`;
         await transporter.sendMail({
             from: "GymDashboard <admin@carlos-fullstack.com>",
             to: user.email,
